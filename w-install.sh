@@ -11,7 +11,7 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 sudo chown -R travis ~
 #echo "--ssh---"
-ssh -o StrictHostKeyChecking=no localhost pwd
+ssh -o StrictHostKeyChecking=no localhost ls -l /home/travis/wtestsm/wtest
 #echo "-------"
 
 sudo service docker stop
