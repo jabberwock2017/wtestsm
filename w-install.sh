@@ -2,8 +2,6 @@
 
 #docker info
 
-echo -n "WD: "
-pwd
 
 echo "/usr/bin/ssh-keygen -q -P  -f ~/.ssh/id_rsa"
 /usr/bin/ssh-keygen -q -P "" -f ~/.ssh/id_rsa
@@ -24,3 +22,11 @@ sudo pip uninstall docker python
 sudo pip install docker-compose
 sudo service docker start
 sudo pip install ansible
+
+echo -n "WD: "
+pwd
+
+sed -e 's;- set_fact: src_dir="{{ ansible_wd.stdout }}/wtestsm";- set_fact: src_dir=~/build/jabberwock2017/wtestm;' <test.yml.template > t.yml
+mv t.yml test.yml.template
+
+echo "**** Travis build dir: $TRAVIS_BUILD_DIR"
