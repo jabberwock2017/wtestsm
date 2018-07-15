@@ -9,7 +9,7 @@
     - local_action: command pwd
       register: ansible_wd
 
-    - set_fact: compose_dir=/var/tmp/ansible-docker-service
+    - set_fact: compose_dir=/tmp/ansible-docker-service
 
     - set_fact: src_dir="{{ ansible_wd.stdout }}/wtestsm"
 
