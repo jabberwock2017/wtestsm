@@ -26,4 +26,4 @@ echo "****************"
 sed -e "s;- set_fact: src_dir=\"{{ ansible_wd.stdout }}/wtestsm\";- set_fact: src_dir=$TRAVIS_BUILD_DIR;" <test.yml.template > t.yml
 mv t.yml test.yml.template
 
-( cd  /home/travis/build/jabberwock2017/wtestsm/wtest ; docker-compose build; docker-compose up --scale wtestbackend=3 ; )
+#( cd  /home/travis/build/jabberwock2017/wtestsm/wtest ; docker-compose build; docker-compose up --scale wtestbackend=3 ; )
