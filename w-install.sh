@@ -26,7 +26,9 @@ sudo pip install ansible
 echo -n "WD: "
 pwd
 
-sed -e 's;- set_fact: src_dir="{{ ansible_wd.stdout }}/wtestsm";- set_fact: src_dir=~/build/jabberwock2017/wtestm;' <test.yml.template > t.yml
+sed -e "s;- set_fact: src_dir=\"{{ ansible_wd.stdout }}/wtestsm\";- set_fact: src_dir=$TRAVIS_BUILD_DIR;" <test.yml.template > t.yml
 mv t.yml test.yml.template
 
 echo "**** Travis build dir: $TRAVIS_BUILD_DIR"
+ls -ld $TRAVIS_BUILD_DIR
+ls -l $TRAVIS_BUILD_DIR
