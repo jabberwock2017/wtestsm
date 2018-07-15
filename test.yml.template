@@ -1,0 +1,56 @@
+#		Playbook for Webinar.ru test
+#				Last update: 19:00:26 15-Jul-18 Violet *
+
+- name: deploy test webinar.ru
+  hosts: "{{ hst | default('wbackend') }}"
+  gather_facts: no
+  tasks:
+
+    - local_action: command pwd
+      register: ansible_wd
+
+    - set_fact: compose_dir=/var/tmp/ansible-docker-service
+
+    - set_fact: src_dir="{{ ansible_wd.stdout }}/wtestsm"
+
+    - debug:
+        var: src_dir
+
+    - file:
+        path: "{{ compose_dir }}"
+        state: directory
+
+    - name: upload files
+      synchronize:
+        src: "{{ item }}"
+        dest: "{{ compose_dir }}"
+      with_items:
+        - "{{ src_dir }}/wtest"
+
+    - docker_service:
+        project_src: "{{ compose_dir }}/wtest"
+        state: absent
+      register: result
+
+    - debug:
+        var: result
+
+    - docker_service:
+        project_src: "{{ src_dir }}/wtest"
+        project_name: wbackend
+        build: yes
+      register: output
+
+    - debug:
+        var: output
+
+    - docker_service:
+        project_src: "{{ src_dir }}/wtest"
+        build: no
+        scale:
+          wbackend: XXXSCALEXXX
+        restarted: true
+      register: output
+
+    - debug:
+        var: output

@@ -1,0 +1,15 @@
+language: python
+python:
+  - "2.7"
+
+script:
+  make all SCALE=5 run
+
+sudo: required
+
+services:
+  - docker
+
+install: /bin/bash ./w-install.sh
+
+

@@ -1,0 +1,20 @@
+version: '2'
+
+volumes:
+  data-volume: {}
+services:
+  wbackend:
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: userpass
+      MYSQL_DATABASE: wtest_db
+    build: .
+    image: wtestbackend:1.0
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306
+
+#	https://stackoverflow.com/questions/44962282/how-to-write-an-ansible-playbook-with-docker-compose
+
